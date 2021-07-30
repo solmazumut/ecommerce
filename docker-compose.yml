@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  hk-kafka:
+    image: spotify/kafka
+    ports:
+      - "2181:2181"
+      - "9092:9092"
+    hostname: localhost
+    container_name: kafka
+    environment:
+      - "ADVERTISED_HOST=localhost"
+      - "ADVERTISED_PORT=9092"
+      - "AUTO_CREATED_TOPICS=true"
+    networks:
+      - ecommerceNetwork
+
+
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    volumes:
+      - /home/umut/mongodb/database:/data/db
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+
+
+
+networks:
+  ecommerceNetwork:
+    driver: bridge
