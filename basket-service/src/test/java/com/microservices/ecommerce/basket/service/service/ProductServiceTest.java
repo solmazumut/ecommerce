@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ProductServiceTest {
@@ -30,7 +29,6 @@ public class ProductServiceTest {
         //Given
         Product product = ProductFactory.createTestProduct();
         String id = String.valueOf(product.getProductId());
-        Thread.sleep(50);
 
         //When
         productService.create(product);
@@ -54,7 +52,6 @@ public class ProductServiceTest {
         long sellerId = 10;
         Seller seller = SellerFactory.createSellerWithOneUser(sellerId,10,10,9,1);
         product.addSeller(seller);
-        Thread.sleep(50);
         productService.create(product);
         Thread.sleep(50);
 
@@ -74,6 +71,64 @@ public class ProductServiceTest {
     }
 
 
+    @Test
+    @Order(3)
+    public void deleteUser() throws InterruptedException {
+
+        //Given
+        Product product = ProductFactory.createTestProduct();
+        long productId = product.getProductId();
+        String stringProductId = String.valueOf(productId);
+        long sellerId = 10;
+        long userId = 9;
+        Seller seller1 = SellerFactory.createSellerWithOneUser(sellerId,10,10,userId,1);
+        Seller seller2 = SellerFactory.createSellerWithOneUser(sellerId,10,10,10,1);
+        product.addSeller(seller1);
+        product.addSeller(seller2);
+        productService.create(product);
+        Thread.sleep(50);
+
+        //When
+        productService.deleteUser(productId, sellerId, userId);
+        Thread.sleep(50);
+
+        //Then
+        Product foundProduct = productService.findById(stringProductId);
+        Seller foundSeller = foundProduct.getSellerWithId(sellerId);
+        assertFalse(foundSeller.isUserExist(userId));
+        Thread.sleep(50);
+
+    }
+
+    @Test
+    @Order(4)
+    public void automaticallyDeleteSellerWhenNoUsersLeft() throws InterruptedException {
+
+        //Given
+        Product product = ProductFactory.createTestProduct();
+        long productId = product.getProductId();
+        String stringProductId = String.valueOf(productId);
+        long sellerId = 10;
+        long userId = 9;
+        Seller seller = SellerFactory.createSellerWithOneUser(sellerId,10,10,userId,1);
+        product.addSeller(seller);
+        Thread.sleep(50);
+        productService.create(product);
+        Thread.sleep(50);
+
+        //When
+        productService.deleteUser(productId, sellerId, userId);
+        Thread.sleep(50);
+
+        //Then
+        Product foundProduct = productService.findById(stringProductId);
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                foundProduct.getSellerWithId(sellerId)
+        );
+        assertEquals("", exception.getMessage());
+        Thread.sleep(50);
+
+    }
 
 
 
