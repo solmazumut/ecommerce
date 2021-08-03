@@ -1,6 +1,6 @@
 package com.microservices.ecommerce.basket.service.config;
 
-import com.microservices.ecommerce.basket.service.model.BasketProduct;
+import com.microservices.ecommerce.basket.service.model.event.BasketProductInfoChangeEvent;
 import com.microservices.ecommerce.basket.service.util.JsonSerializerWithJTM;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,18 +19,21 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class KafkaConfig {
 
     private String kafkaAddress = "http://localhost:9092";
 
+
+
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, BasketProduct> basketProductInfoChangeQueueKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, BasketProduct> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, BasketProductInfoChangeEvent> basketProductInfoChangeQueueKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, BasketProductInfoChangeEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(
                 consumerConfigs(),
                 new StringDeserializer(),
-                new JsonDeserializer<>(BasketProduct.class,false)));
+                new JsonDeserializer<>(BasketProductInfoChangeEvent.class,false)));
         factory.setBatchListener(true);
         return factory;
     }
@@ -48,7 +51,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, BasketProduct> kafkaTemplate() {
+    public KafkaTemplate<String, BasketProductInfoChangeEvent> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
@@ -63,18 +66,18 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, BasketProduct> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, BasketProduct> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, BasketProductInfoChangeEvent> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, BasketProductInfoChangeEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<String, BasketProduct> consumerFactory() {
+    public ConsumerFactory<String, BasketProductInfoChangeEvent> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaAddress);
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, BasketProduct.class);
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, BasketProductInfoChangeEvent.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "basket");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);

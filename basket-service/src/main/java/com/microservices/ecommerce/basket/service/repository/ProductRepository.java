@@ -1,2 +1,12 @@
-package com.microservices.ecommerce.basket.service.repository;public interface ProductRepository {
+package com.microservices.ecommerce.basket.service.repository;
+
+import com.microservices.ecommerce.basket.service.model.Product;
+import org.springframework.data.couchbase.repository.CouchbaseRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository extends CouchbaseRepository<Product, String>{
+    @Override
+    void deleteById(String id);
 }
+

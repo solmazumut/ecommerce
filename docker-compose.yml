@@ -16,22 +16,17 @@ services:
       - ecommerceNetwork
 
 
-  mongodb:
-    image : mongo
-    container_name: mongodb
-    volumes:
-      - /home/umut/mongodb/database:/data/db
+  couchbase:
+    image: couchbase
+    container_name: basketProductDB
+    deploy:
+      replicas: 1
     ports:
-      - 27017:27017
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - 8091:8091
+      - 8092:8092
+      - 8093:8093
+      - 8094:8094
+      - 11210:11210
 
 
 
