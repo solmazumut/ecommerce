@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 @Document
 public class Product {
@@ -14,13 +15,13 @@ public class Product {
     @Field
     String title;
     @Field
-    private List<Seller> sellers;
+    private ArrayList<Seller> sellers;
 
     public Product() {
 
     }
 
-    public Product(long productId, String imageUrl, String title, List<Seller> sellers) {
+    public Product(long productId, String imageUrl, String title, ArrayList<Seller> sellers) {
         this.productId = productId;
         this.imageUrl = imageUrl;
         this.title = title;
@@ -51,11 +52,11 @@ public class Product {
         this.productId = productId;
     }
 
-    public List<Seller> getSellers() {
+    public ArrayList<Seller> getSellers() {
         return sellers;
     }
 
-    public void setSellers(List<Seller> sellers) {
+    public void setSellers(ArrayList<Seller> sellers) {
         this.sellers = sellers;
     }
 
@@ -93,5 +94,33 @@ public class Product {
             sellers.set(sellerIndex, seller);
         }
         return isSuccessful;
+    }
+
+    public void addSeller(Seller newSeller) {
+        int indexNotFound = -1;
+        int sellerIndex = getSellerIndex(newSeller.getSellerId());
+        if(sellerIndex == indexNotFound) {
+            sellers.add(newSeller);
+        } else {
+            Seller oldSeller = getSellers().get(sellerIndex);
+            ArrayList<User> newUserList = newSeller.getUsers();
+            for (User newUser: newUserList) {
+                oldSeller.addOrUpdateUser(newUser);
+            }
+            sellers.set(sellerIndex, oldSeller);
+        }
+    }
+
+
+    public Seller getSellerWithId(long sellerId) {
+        Seller seller = null;
+        for (Seller sellerSellingProduct: this.sellers) {
+            long sellerIdSellingProduct = sellerSellingProduct.getSellerId();
+            if(sellerIdSellingProduct == sellerId) {
+                seller = sellerSellingProduct;
+                break;
+            }
+        }
+        return seller;
     }
 }

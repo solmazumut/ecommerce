@@ -1,8 +1,12 @@
 package com.microservices.ecommerce.basket.service.service;
 
 import com.microservices.ecommerce.basket.service.model.Product;
+import com.microservices.ecommerce.basket.service.model.Seller;
+import com.microservices.ecommerce.basket.service.model.User;
 import com.microservices.ecommerce.basket.service.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -16,9 +20,33 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    private Product addPropertyToExistProduct(Product oldProduct, Product newProduct) {
+        List<Seller> newSellers = newProduct.getSellers();
+        for (Seller newSeller : newSellers) {
+            oldProduct.addSeller(newSeller);
+        }
+        return productRepository.save(oldProduct);
+    }
+
+    public Product createOrAddPropertyToExistProduct(Product product) {
+        Product finalProduct;
+        try {
+            Product oldProduct = this.findById(String.valueOf(product.getProductId()));
+            finalProduct = addPropertyToExistProduct(oldProduct, product);
+        } catch (Exception e) {
+            finalProduct = create(product);
+        }
+
+        return finalProduct;
+    }
+
+
+
     public Product findById(String id) {
         return productRepository.findById(id).orElseThrow( ()-> new RuntimeException(
                 String.format("Product not found")
         ));
     }
+
+
 }

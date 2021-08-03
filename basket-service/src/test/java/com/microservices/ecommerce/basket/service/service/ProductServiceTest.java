@@ -43,13 +43,13 @@ public class ProductServiceTest {
     }
 
 
+    //ensure that products should be unique
     @Test
     @Order(2)
     public void addExistingUserToProduct() throws InterruptedException {
 
         //Given
         Product product = ProductFactory.createTestProduct();
-        productRepository.deleteById(String.valueOf(product.getProductId()));
         String id = String.valueOf(product.getProductId());
         long sellerId = 10;
         Seller seller = SellerFactory.createSellerWithOneUser(sellerId,10,10,9,1);
@@ -61,8 +61,8 @@ public class ProductServiceTest {
         //When
         long userId = 10;
         User user = UserFactory.createUser(userId);
-        product.addOrUpdateUser(product.getSellers().get(0), user);
-        productService.create(product);
+        product.addOrUpdateUser(seller, user);
+        productService.createOrAddPropertyToExistProduct(product);
 
         Product foundProduct = productService.findById(id);
 

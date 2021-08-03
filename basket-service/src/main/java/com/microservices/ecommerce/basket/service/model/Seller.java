@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 @Document
 public class Seller {
@@ -15,9 +16,9 @@ public class Seller {
     @Field
     private float price;
     @Field
-    private List<User> users;
+    private ArrayList<User> users;
 
-    public Seller(long sellerId, int stock, float price, List<User> users) {
+    public Seller(long sellerId, int stock, float price, ArrayList<User> users) {
         this.sellerId = sellerId;
         this.stock = stock;
         this.price = price;
@@ -48,11 +49,11 @@ public class Seller {
         this.price = price;
     }
 
-    public List<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(ArrayList<User> users) {
         this.users = users;
     }
 
@@ -86,5 +87,17 @@ public class Seller {
             isSuccessful = true;
         }
         return isSuccessful;
+    }
+
+    public boolean isUserExist(long userId) {
+        boolean userExist = false;
+        for (User userAddedSeller : users) {
+            long userIdAddedSeller = userAddedSeller.getUserId();
+            if (userIdAddedSeller == userId) {
+                userExist = true;
+                break;
+            }
+        }
+        return userExist;
     }
 }
