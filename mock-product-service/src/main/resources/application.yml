@@ -1,0 +1,8 @@
+server:
+  port : 8080
+
+couchbase-config:
+  connection-string: localhost
+  user-name: Administrator
+  password: password
+  bucket-name: Baskets
