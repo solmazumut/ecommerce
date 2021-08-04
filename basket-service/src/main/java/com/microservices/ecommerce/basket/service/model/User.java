@@ -30,4 +30,9 @@ public class User {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public void increaseQuantityOne() {
+        int newQuantity = getQuantity() + 1;
+        setQuantity(newQuantity);
+    }
 }

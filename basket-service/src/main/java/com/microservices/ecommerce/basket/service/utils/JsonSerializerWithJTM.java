@@ -1,4 +1,5 @@
-package com.microservices.ecommerce.basket.service.util;
+
+package com.microservices.ecommerce.basket.service.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

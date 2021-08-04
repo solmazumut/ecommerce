@@ -1,8 +1,16 @@
 package com.microservices.ecommerce.basket.service.routes;
 
+import com.microservices.ecommerce.basket.service.factory.ProductFactory;
+import com.microservices.ecommerce.basket.service.model.Product;
+import com.microservices.ecommerce.basket.service.model.event.UserMadeAddBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.UserMadeDeleteBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.UserMadeUpdateBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.factory.UserMadeBasketOperationFactrory;
 import com.microservices.ecommerce.basket.service.routes.request.models.AddProductRequestObject;
 import com.microservices.ecommerce.basket.service.routes.request.models.RemoveProductRequestObject;
 import com.microservices.ecommerce.basket.service.routes.request.models.SetProductQuantityRequestObject;
+import com.microservices.ecommerce.basket.service.service.KafkaService;
+import com.microservices.ecommerce.basket.service.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,52 +19,61 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/basket-product")
 public class BasketProductOperations {
 
+    private final ProductService productService;
+    private final KafkaService kafkaService;
+
+    public BasketProductOperations(ProductService productService, KafkaService kafkaService) {
+        this.productService = productService;
+        this.kafkaService = kafkaService;
+    }
+
     @PutMapping(path = "/add-product")
     public ResponseEntity<String> addProductToBasket(@RequestBody AddProductRequestObject addProductRequestObject) {
         ResponseEntity<String> responseEntity;
-        // Check Object is correct
 
-        //Check product and seller is exist DB
+        Product product = ProductFactory.createProductWithRequestObject(addProductRequestObject);
 
-            //if not add product and seller
+        productService.createOrAddPropertyToExistProduct(product);
 
-        //Add User to Product and Seller
+        UserMadeAddBasketOperation userMadeAddBasketOperation = UserMadeBasketOperationFactrory
+                .createUserMadeAddBasketOperation(addProductRequestObject);
 
-        //Send event
-        return new ResponseEntity<String>("hello world", HttpStatus.OK);
+        kafkaService.sendUserMadeBasketOperationMessage(userMadeAddBasketOperation);
+
+        return new ResponseEntity<String>("Product is added", HttpStatus.OK);
     }
 
     @PostMapping(path = "/set-product-quantity")
     public ResponseEntity<String> setProductQuantity(@RequestBody SetProductQuantityRequestObject setProductQuantityRequestObject) {
         ResponseEntity<String> responseEntity;
-        // Check Object is correct
 
-        //Check product and seller is exist DB
 
-            //if not add product and seller
+        Product product = ProductFactory.createProductWithRequestObject(setProductQuantityRequestObject);
 
-        //Check user is exist DB
+        productService.createOrSetPropertyToExistProduct(product);
 
-            //if not add user
+        UserMadeUpdateBasketOperation userMadeUpdateBasketOperation = UserMadeBasketOperationFactrory
+                .createUserMadeUpdateBasketOperation(setProductQuantityRequestObject);
 
-        //Update User Quantity
+        kafkaService.sendUserMadeBasketOperationMessage(userMadeUpdateBasketOperation);
 
-        //Send event
-        return new ResponseEntity<String>("hello world", HttpStatus.OK);
+        return new ResponseEntity<String>("Product is uptaded", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/remove-product")
     public  ResponseEntity<String> removeProduct(@RequestBody RemoveProductRequestObject removeProductRequestObject) {
         ResponseEntity<String> responseEntity;
-        // Check Object is correct
+        long productId = removeProductRequestObject.getProductId();
+        long sellerId = removeProductRequestObject.getSellerId();
+        long userId = removeProductRequestObject.getUserId();
 
-        //Check product, seller and user is exist DB
+        productService.deleteUser(productId, sellerId, userId);
 
-            //if not throw error
+        UserMadeDeleteBasketOperation userMadeDeleteBasketOperation = UserMadeBasketOperationFactrory
+                .createUserMadeDeleteBasketOperation(removeProductRequestObject);
 
-        //remove user from product
+        kafkaService.sendUserMadeBasketOperationMessage(userMadeDeleteBasketOperation);
 
-        //Send event
-        return new ResponseEntity<String>("hello world", HttpStatus.OK);
+        return new ResponseEntity<String>("Product is deleted", HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package com.microservices.ecommerce.basket.service.factory;
 
 import com.microservices.ecommerce.basket.service.model.Product;
 import com.microservices.ecommerce.basket.service.model.Seller;
+import com.microservices.ecommerce.basket.service.routes.request.models.AddProductRequestObject;
+import com.microservices.ecommerce.basket.service.routes.request.models.SetProductQuantityRequestObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,14 +43,30 @@ public class ProductFactory {
         return product;
     }
 
-    public static Product addSellerToProduct(Product product, Seller seller) {
-        ArrayList<Seller> sellers = product.getSellers();
-        if(sellers == null) {
-            sellers = new ArrayList<Seller>(Arrays.asList(seller));
-        } else {
-            sellers.add(seller);
-        }
-        product.setSellers(sellers);
+
+    public static Product createProductWithRequestObject(AddProductRequestObject addProductRequestObject) {
+        long productId = addProductRequestObject.getProductId();
+        String imageUrl = addProductRequestObject.getProductImageUrl();
+        String title = addProductRequestObject.getProductTitle();
+        long sellerId = addProductRequestObject.getSellerId();
+        int stock = addProductRequestObject.getStock();
+        float price = addProductRequestObject.getPrice();
+        long userId = addProductRequestObject.getUserId();
+        int quantity = 1;
+        Product product = ProductFactory.createProductWithOneSellerAndUser(productId, imageUrl, title, sellerId, stock, price, userId, quantity);
+        return product;
+    }
+
+    public static Product createProductWithRequestObject(SetProductQuantityRequestObject setProductQuantityRequestObject) {
+        long productId = setProductQuantityRequestObject.getProductId();
+        String imageUrl = setProductQuantityRequestObject.getProductImageUrl();
+        String title = setProductQuantityRequestObject.getProductTitle();
+        long sellerId = setProductQuantityRequestObject.getSellerId();
+        int stock = setProductQuantityRequestObject.getStock();
+        float price = setProductQuantityRequestObject.getPrice();
+        long userId = setProductQuantityRequestObject.getUserId();
+        int quantity = setProductQuantityRequestObject.getQuantity();
+        Product product = ProductFactory.createProductWithOneSellerAndUser(productId, imageUrl, title, sellerId, stock, price, userId, quantity);
         return product;
     }
 }

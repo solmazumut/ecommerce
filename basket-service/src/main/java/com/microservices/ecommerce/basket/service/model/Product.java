@@ -84,6 +84,8 @@ public class Product {
         }
     }
 
+
+
     public boolean deleteUserFromSeller(long sellerId, long userId) {
         boolean isSuccessful = false;
         int indexNotFound = -1;
@@ -121,6 +123,22 @@ public class Product {
             Seller oldSeller = getSellers().get(sellerIndex);
             ArrayList<User> newUserList = newSeller.getUsers();
             for (User newUser: newUserList) {
+                long userId = newUser.getUserId();
+                oldSeller.addOrUpdateUserOneQuantity(userId);
+            }
+            sellers.set(sellerIndex, oldSeller);
+        }
+    }
+
+    public void addAndSetSeller(Seller newSeller) {
+        int indexNotFound = -1;
+        int sellerIndex = getSellerIndex(newSeller.getSellerId());
+        if(sellerIndex == indexNotFound) {
+            sellers.add(newSeller);
+        } else {
+            Seller oldSeller = getSellers().get(sellerIndex);
+            ArrayList<User> newUserList = newSeller.getUsers();
+            for (User newUser: newUserList) {
                 oldSeller.addOrUpdateUser(newUser);
             }
             sellers.set(sellerIndex, oldSeller);
@@ -138,5 +156,17 @@ public class Product {
             }
         }
         return seller;
+    }
+
+    public boolean isAnyUserAddedProduct() {
+        boolean result = false;
+        for (Seller seller: this.sellers) {
+            if (seller.isAnyUserAddedSeller()) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 }

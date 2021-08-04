@@ -100,4 +100,25 @@ public class Seller {
         }
         return userExist;
     }
+
+    public void addOrUpdateUserOneQuantity(long userId) {
+        int indexNotFound = -1;
+        int userIndex = getUserIndex(userId);
+        if(userIndex == indexNotFound) {
+            User user = UserFactory.createUser(userId);
+            users.add(user);
+        } else {
+            User user = users.get(userIndex);
+            user.increaseQuantityOne();
+            users.set(userIndex, user);
+        }
+    }
+
+    public boolean isAnyUserAddedSeller() {
+        boolean result = true;
+        if (this.users.size() < 1) {
+            result = false;
+        }
+        return result;
+    }
 }

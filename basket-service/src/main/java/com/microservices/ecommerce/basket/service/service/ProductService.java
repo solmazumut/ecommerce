@@ -28,11 +28,31 @@ public class ProductService {
         return productRepository.save(oldProduct);
     }
 
+    private Product setPropertyToExistProduct(Product oldProduct, Product newProduct) {
+        List<Seller> newSellers = newProduct.getSellers();
+        for (Seller newSeller : newSellers) {
+            oldProduct.addAndSetSeller(newSeller);
+        }
+        return productRepository.save(oldProduct);
+    }
+
     public Product createOrAddPropertyToExistProduct(Product product) {
         Product finalProduct;
         try {
             Product oldProduct = this.findById(String.valueOf(product.getProductId()));
             finalProduct = addPropertyToExistProduct(oldProduct, product);
+        } catch (Exception e) {
+            finalProduct = create(product);
+        }
+
+        return finalProduct;
+    }
+
+    public Product createOrSetPropertyToExistProduct(Product product) {
+        Product finalProduct;
+        try {
+            Product oldProduct = this.findById(String.valueOf(product.getProductId()));
+            finalProduct = setPropertyToExistProduct(oldProduct, product);
         } catch (Exception e) {
             finalProduct = create(product);
         }
@@ -49,9 +69,16 @@ public class ProductService {
     }
 
 
-    public Product deleteUser(long productId, long sellerId, long userId) {
+    public void deleteUser(long productId, long sellerId, long userId) {
         Product product = this.findById(String.valueOf(productId));
         product.deleteUserFromSeller(sellerId, userId);
-        return productRepository.save(product);
+        boolean isThereAnyUserAddedProduct = product.isAnyUserAddedProduct();
+        if (isThereAnyUserAddedProduct) {
+            productRepository.save(product);
+        } else {
+            String id = String.valueOf(productId);
+            productRepository.deleteById(id);
+        }
+
     }
 }
