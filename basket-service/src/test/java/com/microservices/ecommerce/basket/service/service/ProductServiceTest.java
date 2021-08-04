@@ -37,7 +37,9 @@ public class ProductServiceTest {
 
         //Then
         assertEquals(product.getProductId(), foundProduct.getProductId());
-
+        Thread.sleep(50);
+        productRepository.deleteById(id);
+        Thread.sleep(50);
     }
 
 
@@ -67,7 +69,8 @@ public class ProductServiceTest {
         Seller foundSeller = foundProduct.getSellerWithId(sellerId);
         assertTrue(foundSeller.isUserExist(userId));
         Thread.sleep(50);
-
+        productRepository.deleteById(id);
+        Thread.sleep(50);
     }
 
 
@@ -97,7 +100,8 @@ public class ProductServiceTest {
         Seller foundSeller = foundProduct.getSellerWithId(sellerId);
         assertFalse(foundSeller.isUserExist(userId));
         Thread.sleep(50);
-
+        productRepository.deleteById(stringProductId);
+        Thread.sleep(50);
     }
 
     @Test
@@ -122,12 +126,11 @@ public class ProductServiceTest {
 
         //Then
         Product foundProduct = productService.findById(stringProductId);
-        RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                foundProduct.getSellerWithId(sellerId)
-        );
-        assertEquals("", exception.getMessage());
-        Thread.sleep(50);
 
+        assertEquals(null, foundProduct.getSellerWithId(sellerId));
+        Thread.sleep(50);
+        productRepository.deleteById(stringProductId);
+        Thread.sleep(50);
     }
 
 

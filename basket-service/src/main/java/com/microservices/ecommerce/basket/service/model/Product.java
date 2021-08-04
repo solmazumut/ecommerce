@@ -92,9 +92,25 @@ public class Product {
             Seller seller = sellers.get(sellerIndex);
             isSuccessful = seller.deleteUser(userId);
             sellers.set(sellerIndex, seller);
+            int numberOfUserWhoAddedSeller = seller.getUsers().size();
+            if(numberOfUserWhoAddedSeller < 1) {
+                isSuccessful = deleteSeller(sellerId);
+            }
         }
         return isSuccessful;
     }
+
+    private boolean deleteSeller(long sellerId) {
+        boolean isSuccessful = false;
+        int indexNotFound = -1;
+        int sellerIndex = getSellerIndex(sellerId);
+        if(sellerIndex != indexNotFound) {
+            sellers.remove(sellerIndex);
+            isSuccessful = true;
+        }
+        return isSuccessful;
+    }
+
 
     public void addSeller(Seller newSeller) {
         int indexNotFound = -1;

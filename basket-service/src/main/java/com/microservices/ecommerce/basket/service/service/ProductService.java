@@ -49,4 +49,9 @@ public class ProductService {
     }
 
 
+    public Product deleteUser(long productId, long sellerId, long userId) {
+        Product product = this.findById(String.valueOf(productId));
+        product.deleteUserFromSeller(sellerId, userId);
+        return productRepository.save(product);
+    }
 }
