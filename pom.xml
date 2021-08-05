@@ -5,7 +5,8 @@
 	<modules>
 		<module>basket-service</module>
         <module>mock-product-service</module>
-    </modules>
+		<module>promotion-service</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -100,6 +101,8 @@
 				<artifactId>avro</artifactId>
 				<version>${avro.version}</version>
 			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 

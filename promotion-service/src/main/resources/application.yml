@@ -1,0 +1,13 @@
+server:
+  port : 8082
+
+topic-names:
+  add-promotion: add-promotion
+  delete-promotion: delete-promotion
+  basket-updated: basket-updated
+
+couchbase-config:
+  connection-string: localhost
+  user-name: Administrator
+  password: password
+  bucket-name: Promotions
