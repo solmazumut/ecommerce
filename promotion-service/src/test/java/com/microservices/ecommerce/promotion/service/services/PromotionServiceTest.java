@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class PromotionService {
+public class PromotionServiceTest {
     @Autowired
     PromotionService promotionService;
     @Autowired
@@ -28,6 +28,7 @@ public class PromotionService {
         String id = String.valueOf(promotion.getPromotionId());
 
         //When
+
         promotionService.create(promotion);
         Thread.sleep(50);
         Promotion foundPromotion = promotionService.findById(id);
@@ -203,7 +204,7 @@ public class PromotionService {
         //When
         promotionService.create(promotion);
         Thread.sleep(50);
-        promotionService.deleteSellers(promotion.getPromotionId(), users);
+        promotionService.deleteUsers(promotion.getPromotionId(), users);
         Thread.sleep(50);
         Promotion foundPromotion = promotionService.findById(id);
 
@@ -213,4 +214,6 @@ public class PromotionService {
         promotionRepository.deleteById(id);
         Thread.sleep(50);
     }
+
+
 }

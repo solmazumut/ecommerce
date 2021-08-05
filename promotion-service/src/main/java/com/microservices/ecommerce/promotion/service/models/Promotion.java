@@ -161,4 +161,84 @@ public class Promotion {
     public void setUsers(ArrayList<Long> users) {
         this.users = users;
     }
+
+    public void update(Promotion promotion) {
+        String promotionTitle = promotion.getPromotionTitle();
+        boolean isEnable = promotion.isEnable();
+        float discount = promotion.getDiscount();
+        float totalPriceMax = promotion.getTotalPriceMax();
+        float totalPriceMin = promotion.getTotalPriceMin();
+        float sellerTotalPriceMax = promotion.getSellerTotalPriceMax();
+        float sellerTotalPriceMin = promotion.getSellerTotalPriceMin();
+        boolean isItEnoughOneSellerForPromotion = promotion.isItEnoughOneSellerForPromotion();
+        ArrayList<Long> whichUsers = promotion.getWhichUsers();
+        ArrayList<Long> whichSellers = promotion.getWhichSellers();
+        ArrayList<Long> whichProducts = promotion.getWhichProducts();
+
+        setPromotionTitle(promotionTitle);
+        setEnable(isEnable);
+        setDiscount(discount);
+        setTotalPriceMax(totalPriceMax);
+        setTotalPriceMin(totalPriceMin);
+        setSellerTotalPriceMax(sellerTotalPriceMax);
+        setSellerTotalPriceMin(sellerTotalPriceMin);
+        setItEnoughOneSellerForPromotion(isItEnoughOneSellerForPromotion);
+        setWhichUsers(whichUsers);
+        setWhichSellers(whichSellers);
+        setWhichProducts(whichProducts);
+    }
+
+    public void addProducts(ArrayList<Long> products) {
+        for (Long productId: products) {
+            boolean isProductExist = this.whichProducts.contains(productId);
+            if(!isProductExist) {
+                this.whichProducts.add(productId);
+            }
+        }
+    }
+
+    public void deleteProducts(ArrayList<Long> products) {
+        for (Long productId: products) {
+            boolean isProductExist = this.whichProducts.contains(productId);
+            if(isProductExist) {
+                this.whichProducts.remove(productId);
+            }
+        }
+    }
+
+    public void addSellers(ArrayList<Long> sellers) {
+        for (Long sellerId: sellers) {
+            boolean isSellerExist = this.whichSellers.contains(sellerId);
+            if(!isSellerExist) {
+                this.whichSellers.add(sellerId);
+            }
+        }
+    }
+
+    public void deleteSellers(ArrayList<Long> sellers) {
+        for (Long sellerId: sellers) {
+            boolean isSellerExist = this.whichSellers.contains(sellerId);
+            if(isSellerExist) {
+                this.whichSellers.remove(sellerId);
+            }
+        }
+    }
+
+    public void addUsers(ArrayList<Long> users) {
+        for (Long userId: users) {
+            boolean isUserExist = this.whichUsers.contains(userId);
+            if(!isUserExist) {
+                this.whichUsers.add(userId);
+            }
+        }
+    }
+
+    public void deleteUsers(ArrayList<Long> users) {
+        for (Long userId: users) {
+            boolean isUserExist = this.whichUsers.contains(userId);
+            if(isUserExist) {
+                this.whichUsers.remove(userId);
+            }
+        }
+    }
 }
