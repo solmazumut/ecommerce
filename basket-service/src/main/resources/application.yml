@@ -6,6 +6,7 @@ topic-names:
   user-made-update-basket-operation: user-made-update-basket-operation
   user-made-delete-basket-operation: user-made-delete-basket-operation
 
+
 couchbase-config:
   connection-string: localhost
   user-name: Administrator

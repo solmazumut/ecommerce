@@ -72,6 +72,8 @@ public class PromotionListServiceTest {
                 newBasketPromotions  = promotionListService.getPromotionsForBasket(basket);
         basket.setPromotions(newBasketPromotions);
         Thread.sleep(50);
+        promotionService.userAdd(promotion.getPromotionId(), basket.getUserId());
+        Thread.sleep(50);
 
         //Then
         boolean isExistPromotion = basket.isExistPromotion(longId);

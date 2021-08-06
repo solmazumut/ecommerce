@@ -266,12 +266,6 @@ public class Promotion {
         computeThereIsProductPromotion();
         computeThereIsUserPromotion();
     }
-    public void addUser(Long userId) {
-        if(this.users == null) {
-            this.users = new ArrayList<Long>();
-        }
-        this.users.add(userId);
-    }
 
     public void addProducts(ArrayList<Long> products) {
         for (Long productId: products) {
@@ -314,7 +308,7 @@ public class Promotion {
         computeThereIsSellerPromotion();
     }
 
-    public void addUsers(ArrayList<Long> users) {
+    public void addWhichUsers(ArrayList<Long> users) {
         for (Long userId: users) {
             boolean isUserExist = this.whichUsers.contains(userId);
             if(!isUserExist) {
@@ -324,7 +318,7 @@ public class Promotion {
         computeThereIsUserPromotion();
     }
 
-    public void deleteUsers(ArrayList<Long> users) {
+    public void deleteWhichUsers(ArrayList<Long> users) {
         for (Long userId: users) {
             boolean isUserExist = this.whichUsers.contains(userId);
             if(isUserExist) {
@@ -333,6 +327,30 @@ public class Promotion {
         }
         computeThereIsUserPromotion();
     }
+
+    public void addUser(Long userId) {
+        if(this.users != null) {
+            boolean isUserExist = this.users.contains(userId);
+            if(!isUserExist) {
+
+                this.users.add(userId);
+            }
+        } else {
+            this.users = new ArrayList<Long>();
+            this.users.add(userId);
+        }
+
+    }
+
+    public void deleteUser(Long userId) {
+        if(this.users != null) {
+            boolean isUserExist = this.users.contains(userId);
+            if (isUserExist) {
+                this.users.remove(userId);
+            }
+        }
+    }
+
 
     private float calculateDiscount(float price) {
         float calculatedDiscount;
@@ -368,7 +386,7 @@ public class Promotion {
                 result = true;
             }
         }
-        return false;
+        return result;
     }
 
     private boolean checkMaxPriceIsSuitable(float price, float maxPrice) {
@@ -380,7 +398,7 @@ public class Promotion {
                 result = true;
             }
         }
-        return false;
+        return result;
     }
     public com.microservices.ecommerce.promotion.service.eventModels.Promotion getPromotionForBasket(Basket basket) {
         boolean isItSuitableForPromotion = true;
@@ -476,5 +494,16 @@ public class Promotion {
             }
         }
         return  isItSuitableForPromotion;
+    }
+
+    public boolean isExistUser(long id) {
+        boolean result = false;
+        for (Long userId: this.users) {
+            if (userId == id) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

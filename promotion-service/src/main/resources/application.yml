@@ -8,6 +8,8 @@ topic-names:
   add-promotion: add-promotion
   delete-promotion: delete-promotion
   basket-updated: basket-updated
+  promotion-is-over: promotion-is-over
+  promotion-list-changed: promotion-list-changed
 
 couchbase-config:
   connection-string: localhost

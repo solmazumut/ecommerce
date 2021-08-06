@@ -179,7 +179,7 @@ public class PromotionServiceTest {
         //When
         promotionService.create(promotion);
         Thread.sleep(50);
-        promotionService.addUsers(promotion.getPromotionId(), users);
+        promotionService.addWhichUsers(promotion.getPromotionId(), users);
         Thread.sleep(50);
         Promotion foundPromotion = promotionService.findById(id);
 
@@ -204,7 +204,7 @@ public class PromotionServiceTest {
         //When
         promotionService.create(promotion);
         Thread.sleep(50);
-        promotionService.deleteUsers(promotion.getPromotionId(), users);
+        promotionService.deleteWhichUsers(promotion.getPromotionId(), users);
         Thread.sleep(50);
         Promotion foundPromotion = promotionService.findById(id);
 

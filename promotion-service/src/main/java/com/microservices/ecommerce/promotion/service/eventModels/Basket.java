@@ -85,4 +85,40 @@ public class Basket {
                 ", sellers=" + sellers +
                 '}';
     }
+
+    public boolean isExistPromotion(long id) {
+        boolean result = false;
+        for (Promotion promotion : this.promotions) {
+            if (promotion.getPromotionId() == id) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void deletePromotionWithId(long promotionId) {
+        if(promotions != null) {
+            int indexNotFound = -1;
+            int index = getPromotionIndex(promotionId);
+            if(index != indexNotFound) {
+                promotions.remove(index);
+            }
+        }
+    }
+
+    private int getPromotionIndex(long promotionId) {
+        int index = -1;
+        if(promotions != null) {
+            int counter = 0;
+            for (Promotion promotion : promotions) {
+                if(promotionId == promotion.getPromotionId()) {
+                    index = counter;
+                    break;
+                }
+                counter++;
+            }
+        }
+        return index;
+    }
 }

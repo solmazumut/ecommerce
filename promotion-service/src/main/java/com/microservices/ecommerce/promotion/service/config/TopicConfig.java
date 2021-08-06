@@ -11,21 +11,26 @@ import org.springframework.kafka.config.TopicBuilder;
 public class TopicConfig {
 
 
-    private static String addPromotionTopic = "add-promotion";
-    private static String deletePromotionTopic = "delete-promotion";
+    private static String promotionInBasketChangedTopic = "promotion-in-basket-changed";
     private static String basketUpdatedTopic = "basket-updated";
+    private static String promotionIsOverTopic = "promotion-is-over";
+    private static String promotionListChanged = "promotion-list-changed";
     private static String groupId = "basket";
 
-    public static String getAddPromotionTopic() {
-        return addPromotionTopic;
-    }
-
-    public static String getDeletePromotionTopic() {
-        return deletePromotionTopic;
+    public static String getPromotionInBasketChangedTopic() {
+        return promotionInBasketChangedTopic;
     }
 
     public static String getBasketUpdatedTopic() {
         return basketUpdatedTopic;
+    }
+
+    public static String getPromotionIsOverTopic() {
+        return promotionIsOverTopic;
+    }
+
+    public static String getPromotionListChanged() {
+        return promotionListChanged;
     }
 
     public static String getGroupId() {
@@ -33,15 +38,8 @@ public class TopicConfig {
     }
 
     @Bean
-    public NewTopic AddPromotionTopic() {
-        return TopicBuilder.name(getAddPromotionTopic())
-                .partitions(6)
-                .replicas(1)
-                .build();
-    }
-    @Bean
-    public NewTopic DeletePromotionTopic() {
-        return TopicBuilder.name(getDeletePromotionTopic())
+    public NewTopic PromotionUpdatedTopic() {
+        return TopicBuilder.name(getPromotionInBasketChangedTopic())
                 .partitions(6)
                 .replicas(1)
                 .build();
@@ -49,6 +47,21 @@ public class TopicConfig {
     @Bean
     public NewTopic BasketUpdatedTopic() {
         return TopicBuilder.name(getBasketUpdatedTopic())
+                .partitions(6)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic PromotionIsOverTopic() {
+        return TopicBuilder.name(getPromotionIsOverTopic())
+                .partitions(6)
+                .replicas(1)
+                .build();
+    }
+    @Bean
+    public NewTopic PromotionListChanged() {
+        return TopicBuilder.name(getPromotionListChanged())
                 .partitions(6)
                 .replicas(1)
                 .build();

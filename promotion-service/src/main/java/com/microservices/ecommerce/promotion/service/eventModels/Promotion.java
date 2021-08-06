@@ -48,4 +48,16 @@ public class Promotion {
                 ", discountPrice=" + discountPrice +
                 '}';
     }
+
+    public boolean isSame(Promotion promotion) {
+        boolean result = true;
+        if(this.promotionId != promotion.getPromotionId()) {
+            result = false;
+        } else if(!this.promotionTitle.equals(promotion.getPromotionTitle())) {
+            result = false;
+        } else if(this.discountPrice != promotion.getDiscountPrice()) {
+            result = false;
+        }
+        return result;
+    }
 }

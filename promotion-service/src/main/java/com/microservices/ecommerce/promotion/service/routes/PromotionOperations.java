@@ -55,8 +55,7 @@ public class PromotionOperations {
 
     @DeleteMapping(path = "/{id}")
     public void deletePromotion(@PathVariable Long id) {
-        String promotionId = String.valueOf(id);
-        promotionRepository.deleteById(promotionId);
+        promotionService.deletePromotion(id);
     }
 
     @PostMapping(path = "/update-promotion")
@@ -65,6 +64,7 @@ public class PromotionOperations {
         String message = promotionService.update(promotion);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
+
 
     @PostMapping(path = "/add-products")
     public ResponseEntity<String> addProducts(@RequestBody RequestWithIdAndList requestWithIdAndList) {
@@ -86,7 +86,7 @@ public class PromotionOperations {
     public ResponseEntity<String> addUsers(@RequestBody RequestWithIdAndList requestWithIdAndList) {
         long id = requestWithIdAndList.getPromotionId();
         ArrayList<Long> idList = requestWithIdAndList.getIdList();
-        String message = promotionService.addUsers(id, idList);
+        String message = promotionService.addWhichUsers(id, idList);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 
@@ -110,7 +110,7 @@ public class PromotionOperations {
     public ResponseEntity<String> deleteUsers(@RequestBody RequestWithIdAndList requestWithIdAndList) {
         long id = requestWithIdAndList.getPromotionId();
         ArrayList<Long> idList = requestWithIdAndList.getIdList();
-        String message = promotionService.deleteUsers(id, idList);
+        String message = promotionService.deleteWhichUsers(id, idList);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 }
