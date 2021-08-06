@@ -43,6 +43,40 @@ public class Basket {
         this.sellers = sellers;
     }
 
+    public void addPromotion(Promotion promotion) {
+        if(promotions == null) {
+            promotions = new ArrayList<Promotion>();
+        }
+        promotions.add(promotion);
+    }
+
+    public void deleteAllPromotions() {
+        promotions = new ArrayList<Promotion>();
+    }
+
+    public float getTotalPrice() {
+        float price = 0;
+        if(this.sellers != null) {
+            for (Seller seller : this.sellers) {
+                price += seller.getTotalPrice();
+            }
+        }
+        return price;
+    }
+
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> allProducts = new ArrayList<Product>();
+        if(this.sellers != null) {
+            for (Seller seller : this.sellers) {
+                ArrayList<Product> sellerProducts = seller.getProducts();
+                if(sellerProducts != null) {
+                    allProducts.addAll(sellerProducts);
+                }
+            }
+        }
+        return allProducts;
+    }
+
     @Override
     public String toString() {
         return "Basket{" +

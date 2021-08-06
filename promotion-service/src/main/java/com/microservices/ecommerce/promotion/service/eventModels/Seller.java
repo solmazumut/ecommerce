@@ -32,6 +32,16 @@ public class Seller {
         this.products = products;
     }
 
+    public float getTotalPrice() {
+        float price = 0;
+        if(this.products != null) {
+            for (Product product : this.products) {
+                price += product.getPrice();
+            }
+        }
+        return price;
+    }
+
     @Override
     public String toString() {
         return "Seller{" +

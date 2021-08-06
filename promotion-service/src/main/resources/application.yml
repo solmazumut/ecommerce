@@ -1,6 +1,9 @@
 server:
   port : 8082
 
+promotion-values:
+  null-value: -1
+
 topic-names:
   add-promotion: add-promotion
   delete-promotion: delete-promotion

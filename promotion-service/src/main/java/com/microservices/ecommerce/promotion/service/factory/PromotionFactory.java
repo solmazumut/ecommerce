@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class PromotionFactory {
     public static Promotion createTestPromotion() {
-        long promotionId = 1;
+        long promotionId = 535;
         String promotionTitle = "Kargo Kampanyası";
         boolean isEnable = true;
         float discount = 11.9f;
