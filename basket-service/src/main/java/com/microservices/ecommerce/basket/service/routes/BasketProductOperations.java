@@ -2,9 +2,9 @@ package com.microservices.ecommerce.basket.service.routes;
 
 import com.microservices.ecommerce.basket.service.factory.ProductFactory;
 import com.microservices.ecommerce.basket.service.model.Product;
-import com.microservices.ecommerce.basket.service.model.event.UserMadeAddBasketOperation;
-import com.microservices.ecommerce.basket.service.model.event.UserMadeDeleteBasketOperation;
-import com.microservices.ecommerce.basket.service.model.event.UserMadeUpdateBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.impl.UserMadeAddBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.impl.UserMadeDeleteBasketOperation;
+import com.microservices.ecommerce.basket.service.model.event.impl.UserMadeUpdateBasketOperation;
 import com.microservices.ecommerce.basket.service.model.event.factory.UserMadeBasketOperationFactrory;
 import com.microservices.ecommerce.basket.service.routes.request.models.AddProductRequestObject;
 import com.microservices.ecommerce.basket.service.routes.request.models.RemoveProductRequestObject;

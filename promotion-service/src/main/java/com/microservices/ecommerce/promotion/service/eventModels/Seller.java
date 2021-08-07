@@ -36,7 +36,7 @@ public class Seller {
         float price = 0;
         if(this.products != null) {
             for (Product product : this.products) {
-                price += product.getPrice();
+                price += product.getTotalPrice();
             }
         }
         return price;

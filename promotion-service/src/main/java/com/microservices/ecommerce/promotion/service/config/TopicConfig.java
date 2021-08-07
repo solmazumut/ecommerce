@@ -38,7 +38,7 @@ public class TopicConfig {
     }
 
     @Bean
-    public NewTopic PromotionUpdatedTopic() {
+    public NewTopic PromotionInBasketChangedTopic() {
         return TopicBuilder.name(getPromotionInBasketChangedTopic())
                 .partitions(6)
                 .replicas(1)

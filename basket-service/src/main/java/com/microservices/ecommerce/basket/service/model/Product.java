@@ -169,4 +169,22 @@ public class Product {
 
         return result;
     }
+
+    public void updateSeller(Seller seller) {
+        int indexNotFound = -1;
+        int indexStackOverFlow = sellers.size();
+        int index = getSellerIndex(seller.getSellerId());
+        if(indexNotFound < index && index < indexStackOverFlow) {
+            sellers.set(index, seller);
+        }
+    }
+
+    public void deleteSellerWithId(long sellerId) {
+        int indexNotFound = -1;
+        int indexStackOverFlow = sellers.size();
+        int index = getSellerIndex(sellerId);
+        if(indexNotFound < index && index < indexStackOverFlow) {
+            sellers.remove(index);
+        }
+    }
 }

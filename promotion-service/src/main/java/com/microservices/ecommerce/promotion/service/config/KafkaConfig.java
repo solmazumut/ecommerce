@@ -61,7 +61,10 @@ public class KafkaConfig {
     }
 
     //Produce
-
+    @Bean
+    public KafkaTemplate<String, Basket> basketProducerKafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
 
     @Bean
     public KafkaTemplate<String, String> promotionListChangedKafkaTemplate() {

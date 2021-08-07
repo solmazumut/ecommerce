@@ -12,12 +12,10 @@ import java.util.List;
 
 @Service
 public class PromotionListService {
-    private final PromotionService promotionService;
     private final PromotionRepository promotionRepository;
     private PromotionList promotionList;
 
-    public PromotionListService(PromotionService promotionService, PromotionRepository promotionRepository) {
-        this.promotionService = promotionService;
+    public PromotionListService( PromotionRepository promotionRepository) {
         this.promotionRepository = promotionRepository;
         promotionList = new PromotionList(new ArrayList<Promotion>());
     }
@@ -96,7 +94,7 @@ public class PromotionListService {
                         ArrayList<com.microservices.ecommerce.promotion.service.eventModels.Promotion> promotionsNeedToBeDeleted) {
         long userId = basket.getUserId();
         for (com.microservices.ecommerce.promotion.service.eventModels.Promotion eventPromotion : promotionsNeedToBeDeleted) {
-            this.promotionService.userAdd(eventPromotion.getPromotionId(), userId);
+            userAdd(eventPromotion.getPromotionId(), userId);
             basket.addPromotion(eventPromotion);
         }
         return basket;
@@ -107,7 +105,7 @@ public class PromotionListService {
         long userId = basket.getUserId();
         for (com.microservices.ecommerce.promotion.service.eventModels.Promotion eventPromotion : promotionsNeedToBeDeleted) {
             long promotionId = eventPromotion.getPromotionId();
-            this.promotionService.userDelete(promotionId, userId);
+            userDelete(promotionId, userId);
             basket.deletePromotionWithId(promotionId);
         }
         return basket;
@@ -156,5 +154,31 @@ public class PromotionListService {
             }
         }
         return resultList;
+    }
+
+    public String userAdd(long promotionId, long userId) {
+        try {
+            Long newUserId = Long.valueOf(userId);
+            String newPromotionId = String.valueOf(promotionId);
+            Promotion promotion = findById(newPromotionId);
+            promotion.addUser(newUserId);
+            this.promotionRepository.save(promotion);
+            return "User added";
+        } catch (Exception e) {
+            return "Promotion not found";
+        }
+    }
+
+    public String userDelete(long promotionId, long userId) {
+        try {
+            Long newUserId = Long.valueOf(userId);
+            String newPromotionId = String.valueOf(promotionId);
+            Promotion promotion = findById(newPromotionId);
+            promotion.deleteUser(newUserId);
+            this.promotionRepository.save(promotion);
+            return "User added";
+        } catch (Exception e) {
+            return "Promotion not found";
+        }
     }
 }

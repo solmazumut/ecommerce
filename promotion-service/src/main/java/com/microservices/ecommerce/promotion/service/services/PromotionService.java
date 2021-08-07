@@ -139,29 +139,5 @@ public class PromotionService {
         }
     }
 
-    public String userAdd(long promotionId, long userId) {
-        try {
-            Long newUserId = Long.valueOf(userId);
-            String newPromotionId = String.valueOf(promotionId);
-            Promotion promotion = findById(newPromotionId);
-            promotion.addUser(newUserId);
-            this.promotionRepository.save(promotion);
-            return "User added";
-        } catch (Exception e) {
-            return "Promotion not found";
-        }
-    }
 
-    public String userDelete(long promotionId, long userId) {
-        try {
-            Long newUserId = Long.valueOf(userId);
-            String newPromotionId = String.valueOf(promotionId);
-            Promotion promotion = findById(newPromotionId);
-            promotion.deleteUser(newUserId);
-            this.promotionRepository.save(promotion);
-            return "User added";
-        } catch (Exception e) {
-            return "Promotion not found";
-        }
-    }
 }

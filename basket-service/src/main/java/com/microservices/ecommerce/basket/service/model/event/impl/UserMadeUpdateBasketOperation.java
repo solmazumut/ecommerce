@@ -1,8 +1,9 @@
-package com.microservices.ecommerce.basket.service.model.event;
+package com.microservices.ecommerce.basket.service.model.event.impl;
 
 import com.microservices.ecommerce.basket.service.config.TopicConfig;
+import com.microservices.ecommerce.basket.service.model.event.UserMadeBasketOperation;
 
-public class UserMadeUpdateBasketOperation extends UserMadeBasketOperation{
+public class UserMadeUpdateBasketOperation extends UserMadeBasketOperation {
 
     String productTitle;
     String productImageUrl;

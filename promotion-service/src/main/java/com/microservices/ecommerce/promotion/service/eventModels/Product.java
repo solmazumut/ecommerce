@@ -6,17 +6,16 @@ public class Product {
     private long productId;
     private String productTitle;
     private String productImageUrl;
-    private int stock;
+    private int quantity;
     private float price;
 
     public Product() {
     }
 
-    public Product(long productId, String productTitle, String productImageUrl, int stock, float price) {
+    public Product(long productId, String productTitle, String productImageUrl, int quantity, float price) {
         this.productId = productId;
         this.productTitle = productTitle;
         this.productImageUrl = productImageUrl;
-        this.stock = stock;
         this.price = price;
     }
 
@@ -44,12 +43,12 @@ public class Product {
         this.productImageUrl = productImageUrl;
     }
 
-    public int getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public float getPrice() {
@@ -66,8 +65,12 @@ public class Product {
                 "productId=" + productId +
                 ", productTitle='" + productTitle + '\'' +
                 ", productImageUrl='" + productImageUrl + '\'' +
-                ", stock=" + stock +
+                ", quantity=" + quantity +
                 ", price=" + price +
                 '}';
+    }
+
+    public float getTotalPrice() {
+        return price * quantity;
     }
 }
