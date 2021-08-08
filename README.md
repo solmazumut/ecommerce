@@ -2,7 +2,7 @@
 
 Günde milyonlarca istek ve event gelebilecek e-ticaret sitesi sepet servisini baştan tasarladım.
 
-**Microservices Patterns: With Examples in Java** kitabının pdf'ini bulup farklı design patternlara baktığımda CQRS mimarisinin benim durumum için uygun olduğunu gördüm çünkü elimde bir data yoktu fakat kendi deneyimimden bir e-ticaret sitesine girdiğimde sepete ekleme çıkarma yapmaktan daha çok sepeti açıp hangi ürünler varmış diye bakıyorum. Bu yüzden yazma ve okuma işlemlerini ayırmak istedim ki hangi sisteme daha çok yük geliyorsa onu scale edebilelim.
+**Microservices Patterns: With Examples in Java** kitabının pdf'ini bulup farklı design patternlara baktığımda **CQRS** mimarisinin benim durumum için uygun olduğunu gördüm çünkü elimde bir data yoktu fakat kendi deneyimimden bir e-ticaret sitesine girdiğimde sepete ekleme çıkarma yapmaktan daha çok sepeti açıp hangi ürünler varmış diye bakıyorum. Bu yüzden yazma ve okuma işlemlerini ayırmak istedim ki hangi sisteme daha çok yük geliyorsa onu scale edebilelim.
 
 # Teknoloji Seçimlerim
 business logic'in yoğun olduğu domainlerde (Basket, Promotion, MockProduct, MockNotification) Java, performansın önemli olduğu çok fazla event dinleyip event atan ya da sorgu gönderilen servislerde (BasketQuery, Connector) Golang dilini tercih ettim.
