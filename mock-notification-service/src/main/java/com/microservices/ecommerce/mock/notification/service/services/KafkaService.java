@@ -39,6 +39,22 @@ public class KafkaService {
         sendNotificationAndSaveDB(message);
     }
 
+    @KafkaListener(
+            groupId = "basket",
+            containerFactory = "basketNotificationEventQueueKafkaListenerContainerFactory",
+            topicPartitions = { @TopicPartition(topic = "product-removed-from-basket", partitions = { "0" })}
+    )
+    public void productRemoved(BasketNotificationEvent message) { sendNotificationAndSaveDB(message); }
+
+    @KafkaListener(
+            groupId = "basket",
+            containerFactory = "basketNotificationEventQueueKafkaListenerContainerFactory",
+            topicPartitions = { @TopicPartition(topic = "out-of-stock", partitions = { "0" })}
+    )
+    public void outOfStock(BasketNotificationEvent message) {
+        sendNotificationAndSaveDB(message);
+    }
+
     private void sendNotificationAndSaveDB(BasketNotificationEvent message) {
         ArrayList<User> users = mockDBService.getUsersWithId(message.getUserIdList());
         for (User user : users) {
