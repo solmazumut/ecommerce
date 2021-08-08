@@ -140,7 +140,6 @@ public class ProductService {
                             product.getImageUrl(),
                             seller.getSellerId(),
                             seller.getPrice(),
-                            seller.getStock(),
                             user.getUserId(),
                             user.getQuantity()
                     );
@@ -186,7 +185,7 @@ public class ProductService {
 
                 UserMadeUpdateBasketOperation basketOperation = UserMadeBasketOperationFactrory
                         .createUserMadeUpdateBasketOperation(productId, product.getTitle(), product.getImageUrl(),
-                                sellerId, seller.getPrice(), stock, user.getUserId(), user.getQuantity());
+                                sellerId, seller.getPrice(), user.getUserId(), user.getQuantity());
                 basketOperations.add(basketOperation);
 
                 userIdListForNotification.add(user.getUserId());

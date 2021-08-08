@@ -9,7 +9,6 @@ public class UserMadeAddBasketOperation extends UserMadeBasketOperation {
     String productTitle;
     String productImageUrl;
     float price;
-    int stock;
 
     public UserMadeAddBasketOperation() {
         super(TopicConfig.getUserMadeAddBasketOperation());
@@ -39,11 +38,4 @@ public class UserMadeAddBasketOperation extends UserMadeBasketOperation {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 }

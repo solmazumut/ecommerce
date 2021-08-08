@@ -8,7 +8,6 @@ public class UserMadeUpdateBasketOperation extends UserMadeBasketOperation {
     String productTitle;
     String productImageUrl;
     float price;
-    int stock;
     int quantity;
 
 
@@ -38,14 +37,6 @@ public class UserMadeUpdateBasketOperation extends UserMadeBasketOperation {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public int getQuantity() {

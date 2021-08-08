@@ -20,7 +20,7 @@ public class PromotionServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        LOG.info("Promotion Service starts...");
 
     }
 }

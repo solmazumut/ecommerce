@@ -20,7 +20,7 @@ public class MockProductServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        LOG.info("Mock Product Service starts...");
 
     }
 }

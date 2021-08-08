@@ -6,7 +6,8 @@
 		<module>basket-service</module>
         <module>mock-product-service</module>
 		<module>promotion-service</module>
-	</modules>
+        <module>mock-notification-service</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

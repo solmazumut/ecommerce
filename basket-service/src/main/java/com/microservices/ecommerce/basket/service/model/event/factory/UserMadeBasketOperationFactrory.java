@@ -11,14 +11,13 @@ public class UserMadeBasketOperationFactrory {
 
     public static UserMadeAddBasketOperation createUserMadeAddBasketOperation(long productId, String productTitle,
                                                                               String productImageUrl, long sellerId,
-                                                                              float price, int stock, long userId) {
+                                                                              float price, long userId) {
         UserMadeAddBasketOperation userMadeAddBasketOperation = new UserMadeAddBasketOperation();
         userMadeAddBasketOperation.setProductId(productId);
         userMadeAddBasketOperation.setProductTitle(productTitle);
         userMadeAddBasketOperation.setProductImageUrl(productImageUrl);
         userMadeAddBasketOperation.setSellerId(sellerId);
         userMadeAddBasketOperation.setPrice(price);
-        userMadeAddBasketOperation.setStock(stock);
         userMadeAddBasketOperation.setUserId(userId);
 
         return userMadeAddBasketOperation;
@@ -30,7 +29,6 @@ public class UserMadeBasketOperationFactrory {
         userMadeAddBasketOperation.setProductImageUrl(addProductRequestObject.getProductImageUrl());
         userMadeAddBasketOperation.setSellerId(addProductRequestObject.getSellerId());
         userMadeAddBasketOperation.setPrice(addProductRequestObject.getPrice());
-        userMadeAddBasketOperation.setStock(addProductRequestObject.getStock());
         userMadeAddBasketOperation.setUserId(addProductRequestObject.getUserId());
 
         return userMadeAddBasketOperation;
@@ -38,7 +36,7 @@ public class UserMadeBasketOperationFactrory {
 
     public static UserMadeUpdateBasketOperation createUserMadeUpdateBasketOperation(long productId, String productTitle,
                                                                                     String productImageUrl, long sellerId,
-                                                                                    float price, int stock, long userId,
+                                                                                    float price, long userId,
                                                                                     int quantity) {
         UserMadeUpdateBasketOperation userMadeUpdateBasketOperation = new UserMadeUpdateBasketOperation();
         userMadeUpdateBasketOperation.setProductId(productId);
@@ -46,7 +44,6 @@ public class UserMadeBasketOperationFactrory {
         userMadeUpdateBasketOperation.setProductImageUrl(productImageUrl);
         userMadeUpdateBasketOperation.setSellerId(sellerId);
         userMadeUpdateBasketOperation.setPrice(price);
-        userMadeUpdateBasketOperation.setStock(stock);
         userMadeUpdateBasketOperation.setUserId(userId);
         userMadeUpdateBasketOperation.setQuantity(quantity);
 
@@ -60,7 +57,6 @@ public class UserMadeBasketOperationFactrory {
         userMadeUpdateBasketOperation.setProductImageUrl(setProductQuantityRequestObject.getProductImageUrl());
         userMadeUpdateBasketOperation.setSellerId(setProductQuantityRequestObject.getSellerId());
         userMadeUpdateBasketOperation.setPrice(setProductQuantityRequestObject.getPrice());
-        userMadeUpdateBasketOperation.setStock(setProductQuantityRequestObject.getStock());
         userMadeUpdateBasketOperation.setUserId(setProductQuantityRequestObject.getUserId());
         userMadeUpdateBasketOperation.setQuantity(setProductQuantityRequestObject.getQuantity());
 
