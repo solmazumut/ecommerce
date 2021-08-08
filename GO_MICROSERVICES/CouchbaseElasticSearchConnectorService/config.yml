@@ -1,0 +1,16 @@
+topic-names:
+  user-made-add-basket-operation: "user-made-add-basket-operation"
+  user-made-update-basket-operation: "user-made-update-basket-operation"
+  user-made-delete-basket-operation: "user-made-delete-basket-operation"
+  basket-updated: basket-updated
+  promotion-in-basket-changed: promotion-in-basket-changed
+  promotion-is-over: promotion-is-over
+  promotion-list-changed: promotion-list-changed
+  message-splitter: "@"
+
+elasticsearch-config:
+  url: "http://localhost:9200"
+
+kafka-config:
+  broker: "localhost:9092"
+  group-id: "basket"
